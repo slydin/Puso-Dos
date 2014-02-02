@@ -1,9 +1,7 @@
-import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.*;
 
 /**
- * The Player class acts as a GUI class and as a storage class for each card each player holds.
+ * The Player class acts as a storage class for each card each player holds.
  * 
  * Name, Date, Modifications: 
  * John Doe, 10/10/10, Added some methods (specify) and added corrections (where?).
@@ -11,11 +9,12 @@ import javax.swing.*;
  * 							If the player is a real player they will return true in the 
  * 							newly implemented method.
  * Lucas Kushner, 7/30/2012 Modified GUI code to fix player table interaction
+ * Jeric Derama, 2/01/2014, Removed GUI features and updated methods to be text-based.
  * @author Jeric
- * @version 24 June 2012
+ * @version 1 Feb 2014
  */
 @SuppressWarnings("serial")
-public class Player extends JPanel
+public class Player
 {
 	private ArrayList<Card> hand;
 	private static int number = 1;

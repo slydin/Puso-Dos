@@ -19,7 +19,7 @@ import java.util.*;
  * Jeric Derama, 8/09/2012, Added some GUI fixes in the play method. Still need to implement JMenu. 
  * Jeric Derama, 2/01/2014, Removed GUI features and updated methods to become text-based.
  * @author Jeric Derama
- * @version 24 June 2012
+ * @version 1 Feb 2014
  */
 @SuppressWarnings("serial")
 public class Table{
@@ -44,6 +44,18 @@ public class Table{
 			return 0;
 		
 		return this.played.size();
+	}
+	
+	public String played(){
+		if(this.played == null)
+			return "A hand has not been played yet.";
+		else{
+			String cards = "";
+			for(Card c: this.played)
+				cards = c.toString() + ", ";
+			return cards;
+		}	
+
 	}
 	/**
 	 * Checks to see if a player can play their hand by comparing to what has been
@@ -103,16 +115,19 @@ public class Table{
 //		}
 //		else
 //			this.played = hand;	
+		System.out.println("This is player: "  + p.getNumber());
+		System.out.println("This is the hand to be played: " + hand.toString());
+		
 		this.played = hand;
-		ArrayList<Card> temp = new ArrayList<Card>(p.getHand());
+//		ArrayList<Card> temp = new ArrayList<Card>(p.getHand());
 		for(Card c: this.played)
-			temp.remove(p.getHand().indexOf(c));
+			p.getHand().remove(p.getHand().indexOf(c));
 //			{Card used = c;
 //			// Go through the player's hand and remove the cards that have been played
 //			for(int i = 0; i < p.getHand().size(); i++)	
 //				if(used.getRank() == p.getHand().get(i).getRank() && used.getSuit() == p.getHand().get(i).getSuit())
 //					temp.remove(i);}
-		p.setHand(temp);
+//		p.setHand(temp);
 		
 		String beingPlayed = "";
 		for(Card c: this.played)

@@ -7,8 +7,9 @@ import java.util.ArrayList;
  * Name, Date, Modifications: 
  * John Doe, 10/10/10, Added some methods (specify) and added corrections (where?).
  * Jeric Derama, 8/03/2012, Changed the methods away from being static.
+ * Jeric Derama, 02/01/2014, Updated rank() method for doubles and triples.
  * @author Jeric
- * @version 7 July 2012
+ * @version 1 Feb 2014
  */
 public class Rank 
 {	
@@ -22,11 +23,24 @@ public class Rank
 	{
 		int rank = 0;
 		// If ranking against singles, doubles, and triples just use the card's rank. 
-		if(playing.size() == 1 || playing.size() == 2 || playing.size() == 3)
-		{
+		if(playing.size() == 1){
 			rank = playing.get(0).getRank();
 		}
-			
+		else if(playing.size() == 2){
+			if(playing.get(0).getRank() != playing.get(1).getRank())
+				return -1;
+			else
+				return playing.get(0).getRank();
+		}
+		else if(playing.size() == 3){
+			if(playing.get(0).getRank() == playing.get(1).getRank())
+				if(playing.get(0).getRank() == playing.get(2).getRank())
+					return playing.get(0).getRank();
+				else
+					return -1;
+			else
+				return -1;
+		}
 		// Calls on private methods to determine hand's rank
 		if(playing.size() == 5)
 		{
@@ -219,16 +233,10 @@ public class Rank
 		// Calls on the private methods to check if the first hand
 		// is stronger than the second.
 		if(one.size() == 1)
-		{
 			for(Card d: two)
-			{
 				for(Card c: one)
-				{
-					if(d.getSuit() > c.getSuit())
+					if(c.getSuit() > d.getSuit())
 						check = true;
-				}
-			}
-		}
 		if(rank == 1)
 			check = straight(one,two);
 		else if(rank == 2)

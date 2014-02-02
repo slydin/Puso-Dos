@@ -1,19 +1,13 @@
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
 /**
  * The Card class acts as a GUI class as well as a storage for each individual card's 
  * rank and suit. 
  * 
  * Name, Date, Modifications: 
  * John Doe, 10/10/10, Added some methods (specify) and added corrections (where?).
- * Jeric Derama 8/03/2012, Completed UI functionality with Card components to be used in poker based card games. 
- * 
+ * Jeric Derama, 8/03/2012, Completed UI functionality with Card components to be used in poker based card games. 
+ * Jeric Derama, 1/02/2014, Removed GUI features and updated features to be text-based. 
  * @author Jeric Derama
- * @version 24 June 2012
+ * @version 1 Feb 2014
  */
 @SuppressWarnings("serial")
 public class Card{ 
@@ -32,11 +26,11 @@ public class Card{
      * Card constructor for playing purposes
      * @param card The number assigned to the card
      */
-    public Card(int card) {	
+    public Card(int card,int rank) {	
     	// Sets the card's rank
     	this.rank = card % 13;
         // Sets the card's numerical suit
-    	this.suit = card / 13 + 1;
+    	this.suit = rank;
     	// Set up hand possible variables
     	this.pair = false;
     	this.triple = false;
@@ -216,7 +210,8 @@ public class Card{
     	return this.straightFlush;
     }
     
-//    private String toString(){
-//    	return "" + this.rank + "";
-//    }
+    @Override
+    public String toString(){
+    	return "" + this.rank + " of " + this.getFullSuit();
+    }
 }
