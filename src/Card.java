@@ -7,8 +7,9 @@
  * Jeric Derama, 8/03/2012, Completed UI functionality with Card components to be used in poker based card games. 
  * Jeric Derama, 02/01/2014, Removed GUI features and updated features to be text-based. 
  * Jeric Derama, 02/07/2014, Implemented Comparable<Card> class and compareTo() method.
+ * Jeric Derama, 02/10/2014, Added resetStates() method to reduce amount of calls done in GameApp.java
  * @author Jeric Derama
- * @version 1 Feb 2014
+ * @version 10 Feb 2014
  */
 @SuppressWarnings("serial")
 public class Card implements Comparable<Card>{ 
@@ -77,11 +78,24 @@ public class Card implements Comparable<Card>{
     } 
     
     /**
-     * Getter method for this card's suit *useless method*
-     * @return the suit
+     * Getter method for this card's suit.
+     * @return the suit in string form.
      */
     public String getFullSuit(){
     	return this.fullSuit;
+    }
+    
+    /**
+     * Method that resets the statuses of this card.
+     */
+    public void resetStates(){
+    	this.pair = false;
+    	this.triple = false;
+    	this.straight = false;
+    	this.flush = false;
+    	this.full = false;
+    	this.four = false;
+    	this.straightFlush = false;
     }
     
     /**
@@ -212,11 +226,17 @@ public class Card implements Comparable<Card>{
     }
     
     @Override
+    /**
+     * Method Override of the toString() method for Objects
+     */
     public String toString(){
     	return "" + this.rank + " of " + this.getFullSuit();
     }
 
 	@Override
+	/**
+	 * Method that allows for the Card to be checked as a comparable object
+	 */
 	public int compareTo(Card o) {
 		// TODO Auto-generated method stub
 		if(o.getRank() > this.getRank())

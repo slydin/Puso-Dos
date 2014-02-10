@@ -2,8 +2,7 @@ import java.awt.*;
 import java.util.*;
 
 /**
- * The Table class acts as both a gui frame and a storage for the put down by the 
- * players. 
+ * The Table class acts as a table for the ArrayList<Card> hands that have been played by the players. 
  * 
  * Name, Date, Modifications: 
  * John Doe, 10/10/10, Added some methods (specify) and added corrections (where?).
@@ -108,7 +107,6 @@ public class Table{
 		for(Card c: hand)
 			if(c.getRank() == 3 && c.getSuit() == 1)
 				this.check = false;
-
 		System.out.println("This is player: "  + p.getNumber());
 		System.out.println("This is the hand to be played: " + hand.toString());
 		this.played = hand;

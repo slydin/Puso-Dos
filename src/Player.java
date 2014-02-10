@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * @author Jeric
  * @version 1 Feb 2014
  */
-@SuppressWarnings("serial")
 public class Player
 {
 	private ArrayList<Card> hand;
@@ -64,10 +63,4 @@ public class Player
 	public int getNumber(){
 		return this.playerNum;
 	}
-	
-	
-	
-	
-	
-	
 }

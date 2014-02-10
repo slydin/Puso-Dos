@@ -13,8 +13,10 @@ import java.util.*;
  * Jeric Derama, 2/01/2014, Removed GUI features and updated methods to become text-based. Updated playAI method to handle 
  * 							first player to play scenarios (Has Three of Clubs).
  * Jeric Derama, 2/07/2014, Reimplemented findStraights() and findStraightFlushes() methods. 
+ * Jeric Derama, 2/10/2014, Reduced amount of calls done to resetHand() method. 
+ * 
  * @author Jeric
- * @version 7 Feb 2014
+ * @version 10 Feb 2014
  */
 public class GameApp{
 	private ArrayList<Card> deck, toBePlayed;
@@ -700,23 +702,8 @@ public class GameApp{
 	 */
 	private void resetHand(Player p){
 		// Reset the states for each card
-		for(Card c: p.getHand()){
-			if(c.isDouble())
-				c.changeDouble();
-			if(c.isTriple())
-				c.changeTriple();
-			if(c.isStraight())
-				c.changeStraight();
-			if(c.isFlush())
-				c.changeFlush();
-			if(c.isFull())
-				c.changeFull();
-			if(c.is4OfAKind())
-				c.change4OfAKind();
-			if(c.isStraightFlush())
-				c.changeStraightFlush();
-		}
-		
+		for(Card c: p.getHand())
+			c.resetStates();
 		// Set the new states for each card
 		this.makeHands(p);
 	}
@@ -783,8 +770,7 @@ public class GameApp{
 						check = true;
 						this.straightFlush = true;
 					}
-			}
-				
+			}		
 		return check;
 	}
 	
@@ -808,7 +794,6 @@ public class GameApp{
 		int ranNum = 0;
 		if(possible.size() > 1)
 			ranNum = this.r.nextInt(possible.size());
-
 		if(ranNum >= 0  && possible.size() >= 1){
 				// Use the random number and play that hand
 				this.t.play(possible.get(ranNum),p);
@@ -818,10 +803,6 @@ public class GameApp{
 				this.starter = this.endTurn();
 				return true;
 			}
-//		else{
-//				System.out.println("Player: "+ p.getNumber() + " has passed");
-//				this.starter = this.pass();
-//			}
 		return false;
 	}
 	
@@ -850,7 +831,6 @@ public class GameApp{
 		int ranNum = 0;
 		if(possible.size() > 1)
 			ranNum = this.r.nextInt(possible.size());
-
 		if(ranNum >= 0  && possible.size() >= 1){
 				// Use the rand	 wom number and play that hand
 				this.t.play(possible.get(ranNum),p);
@@ -860,10 +840,6 @@ public class GameApp{
 				this.starter = this.endTurn();
 				return true;
 			}
-//		else {
-//				System.out.println("Player: "+ p.getNumber() + " has passed");
-//				this.starter = this.pass();
-//			}
 		return false;
 	}
 	
@@ -894,7 +870,6 @@ public class GameApp{
 		int ranNum = 0;
 		if(possible.size() > 1)
 			ranNum = this.r.nextInt(possible.size());
-
 		if(ranNum >= 0  && possible.size() >= 1){
 				// Use the random number and play that hand
 				this.t.play(possible.get(ranNum),p);
@@ -904,10 +879,6 @@ public class GameApp{
 				this.starter = this.endTurn();
 				return true;
 			}
-//		else {
-//				System.out.println("Player: "+ p.getNumber() + " has passed");
-//				this.starter = this.pass();
-//			}
 		return false;
 	}
 	
@@ -915,8 +886,7 @@ public class GameApp{
 	 * Method that would play a 5 card hand for the AI
 	 * @param p the player
 	 */
-	private boolean playHand(Player p)
-	{
+	private boolean playHand(Player p){
 		//Create an ArrayList of hands the are the possibilities to be played each turn by for each player
 		ArrayList<ArrayList<Card>> possible = new ArrayList<ArrayList<Card>>();
 		int counter = 1;
@@ -929,13 +899,6 @@ public class GameApp{
 					// Initialize a hand to be added to the possibilities to be played
 					ArrayList<Card> hands = new ArrayList<Card>();
 					hands.add(c);
-//					for(Card d: p.getHand()){
-//						// Increase the counter 
-//						if(c.getRank() + counter == d.getRank() && d.isStraight()){
-//							counter++;
-//							hands.add(d);
-//						}
-//					}
 					int k = 0;
 					while(counter < 5){
 						Card d = p.getHand().get(k);
@@ -947,8 +910,7 @@ public class GameApp{
 							k = 0;
 						else
 							k++;
-					}
-					
+					}	
 					if(counter == 5)
 						possible.add(hands);
 					else if(counter > 5){
@@ -980,7 +942,6 @@ public class GameApp{
 							hands.add(d);
 						}
 					}
-					
 					if(counter == 4)
 						possible.add(hands);
 					else if(counter > 4){
@@ -993,15 +954,13 @@ public class GameApp{
 					counter = 0;
 				}
 			}
-		}
-		
+		}	
 		// Add another counter to count for the Doubles for Full Houses
 		int counter1 = 0;
 		// If the player contains full houses
 		if(this.full){
 			// Go through each card
 			for(Card c: p.getHand()){
-				
 				if(c.isFull() && c.isTriple()){
 					// Initialize a hand to be added to the possibilities to be played
 					ArrayList<Card> hands = new ArrayList<Card>();
@@ -1016,8 +975,7 @@ public class GameApp{
 					// Going for doubles
 					Boolean doubleNotFound = true;
 					Card e = null;
-					for(Card d: p.getHand())
-					{
+					for(Card d: p.getHand()){
 						if(c.getRank() != d.getRank() && d.isFull() && d.isDouble() && counter < 2 && doubleNotFound){
 							counter1++;
 							hands.add(d);
@@ -1025,10 +983,8 @@ public class GameApp{
 							doubleNotFound = false;
 						}
 						else if(e.getRank() == d.getRank() && e.getSuit() != d.getSuit())
-							hands.add(d);
-						
+							hands.add(d);	
 					}
-					
 					if(counter == 3 && counter1 == 2 )
 						possible.add(hands);
 						
@@ -1038,13 +994,11 @@ public class GameApp{
 				}
 			}
 		}
-		
 		counter = 0;
 		// If the player contains a four of a kind
 		if(this.four){
 			// Go through each card
 			for(Card c: p.getHand()){
-				
 				if(c.is4OfAKind()){
 					// Initialize a hand to be added to the possibilities to be played
 					ArrayList<Card> hands = new ArrayList<Card>();
@@ -1056,16 +1010,13 @@ public class GameApp{
 							hands.add(d);
 						}
 					}
-					
 					// Find an extra card to make it a hand
 					for(Card d: p.getHand()){
 						if(c.getRank() != d.getRank() && !d.is4OfAKind() && counter < 4){
 								hands.add(d);
 								counter++;
-							}
-							
-					}
-					
+							}			
+					}	
 					if(counter == 4)
 						possible.add(hands);
 					// Reset the counter
@@ -1073,7 +1024,6 @@ public class GameApp{
 				}
 			}
 		}
-		
 		// Set the counter similar to the Straight
 		counter = 1;
 		// If the player contains a straight flush
@@ -1084,14 +1034,7 @@ public class GameApp{
 				if(c.isStraightFlush()){
 					// Initialize a hand to be added to the possibilities to be played
 					ArrayList<Card> hands = new ArrayList<Card>();
-					hands.add(c);
-//					for(Card d: p.getHand()){
-//						if(c.getRank() + counter == d.getRank() && d.isStraightFlush()){
-//							counter++;
-//							hands.add(d);
-//						}
-//					}
-					
+					hands.add(c);	
 					int k = 0;
 					while(counter < 5){
 						Card d = p.getHand().get(k);
@@ -1104,7 +1047,6 @@ public class GameApp{
 						else
 							k++;
 					}
-					
 					if(counter == 5)
 						possible.add(hands);
 					else if(counter > 5){
@@ -1113,17 +1055,14 @@ public class GameApp{
 							hands.remove(i-1);
 						possible.add(hands);
 					}
-					counter = 1;
-						
+					counter = 1;	
 				}
 			}
 		}
-		
 		// Use a random generator to choose a hand out of the possibilities
 		int ranNum = 0;
 		if(possible.size() > 1)
 			ranNum = this.r.nextInt(possible.size());
-
 		if(ranNum >= 0  && possible.size() >= 1){
 				// Use the random number and play that hand
 				this.t.play(possible.get(ranNum),p);
@@ -1133,10 +1072,6 @@ public class GameApp{
 				this.starter = this.endTurn();
 				return true;
 			}
-//		else {
-//				System.out.println("Player: "+ p.getNumber() + " has passed");
-//				this.starter = this.pass();
-//			}
 		return false;
 	}
 }
