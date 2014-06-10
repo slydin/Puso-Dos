@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.*;
 
 /**
@@ -20,7 +19,6 @@ import java.util.*;
  * @author Jeric Derama
  * @version 1 Feb 2014
  */
-@SuppressWarnings("serial")
 public class Table{
 	private ArrayList<Card> played;
 	private Rank ranker;
@@ -82,7 +80,7 @@ public class Table{
 		if(hand.size() != this.played.size())
 			return false;
 		// Compare the current hand the one being played
-		if(this.ranker.rank(this.played) < ranker.rank(hand))
+		if(this.ranker.rank(this.played) < this.ranker.rank(hand))
 			return true;
 		else if(this.ranker.rank(this.played) == this.ranker.rank(hand))
 			if(this.ranker.sameRankGreaterSuit(hand,this.played))

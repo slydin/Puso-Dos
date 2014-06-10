@@ -1,9 +1,5 @@
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 /**
  * This main class plays the Pusoy Dos Game (AI vs. AI [under construction] , 
@@ -26,6 +22,7 @@ public class GameMain {
 		System.out.println("Please insert the amount of players: ");
 		int numOfPlayers = scan.nextInt();
 		GameApp pusoy = new GameApp(numOfPlayers);
+		pusoy.initialize();
 		
 	}
 }

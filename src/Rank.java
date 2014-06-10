@@ -10,6 +10,7 @@ import java.util.Collections;
  * Jeric Derama, 8/03/2012, Changed the methods away from being static.
  * Jeric Derama, 02/01/2014, Updated rank() method for doubles and triples.
  * Jeric Derama, 02/07/2014, Updated isStraight() method.
+ * Jeric Derama, 05/29/2014, Fixed isFullHouse() method.
  * @author Jeric
  * @version 7 Feb 2014
  */
@@ -70,6 +71,7 @@ public class Rank
 	 * @param hand to be checked
 	 * @return true if the hand is of this type
 	 */
+	@SuppressWarnings("unchecked")
 	private boolean isStraight(ArrayList<Card> hand){
 		ArrayList<Card> copy = (ArrayList<Card>) hand.clone();
 		// First check if the hand size is 5
@@ -141,9 +143,9 @@ public class Rank
 		}
 		
 		// Checks the two possibilities
-		if(rank1 == 3 && rank2 == 2)
+		if(counter1 == 3 && counter2 == 2)
 			check = true;
-		else if(rank1 == 2 && rank2 == 3)
+		else if(counter1 == 2 && counter2 == 3)
 			check = true;
 		
 		return check;
@@ -205,10 +207,21 @@ public class Rank
 		// Calls on the private methods to check if the first hand
 		// is stronger than the second.
 		if(one.size() == 1)
-			for(Card d: two)
-				for(Card c: one)
-					if(c.getSuit() > d.getSuit())
-						check = true;
+			if(one.get(0).getSuit() > two.get(0).getSuit())
+				return true;
+			else 
+				return false;
+		if(one.size() == 2){
+			int oneSuit = 0;
+			int twoSuit = 0;
+			for(Card c: one)
+				if(oneSuit < c.getSuit())
+					oneSuit = c.getSuit();
+			for(Card c: two)
+				if(twoSuit < c.getSuit())
+					twoSuit = c.getSuit();
+				
+		}
 		if(rank == 1)
 			check = straight(one,two);
 		else if(rank == 2)

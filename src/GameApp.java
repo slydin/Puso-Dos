@@ -39,7 +39,6 @@ public class GameApp{
 		this.passCounter = 0;
 		this.yourTurn = false;
 		this.t = new Table();
-		this.initialize();
 	}
 	
 	/**
@@ -374,8 +373,6 @@ public class GameApp{
 		this.starter = 0;
 		
 		for(Player p: party){	
-			// Create a counter
-			int counter = 0;
 			// Check each players hand
 			for(Card c: p.getHand()){
 				// Finding the 3 of clubs
@@ -383,9 +380,6 @@ public class GameApp{
 					this.starter = finder;
 					return;
 				}
-				// Increasing the counter so we can remove the card when put
-				// on the table
-					counter++;
 			}
 			// Increase the player counter to the next player;
 			finder++;
@@ -518,6 +512,7 @@ public class GameApp{
 	 * Method used in makeHands() to find cards that can be used in a straight
 	 * @param p the player
 	 */
+	@SuppressWarnings("unchecked")
 	private void findStraights(Player p){
 		ArrayList<Card> hand = (ArrayList<Card>) p.getHand().clone();
 		Collections.sort(hand);
@@ -647,7 +642,7 @@ public class GameApp{
 			}
 			// if the counter has exceeded the given number
 			// add it to temp as well and remove from the original hand
-			if(counter >= 3){
+			if(counter > 3){
 				for(Card d: hand)
 					if(c.getRank() == d.getRank() && c.getSuit() != d.getSuit() && !d.is4OfAKind())
 						d.change4OfAKind();
@@ -666,6 +661,7 @@ public class GameApp{
 	 * Method used in makeHands() to find cards that can be used in a straight flush
 	 * @param p the player
 	 */
+	@SuppressWarnings("unchecked")
 	private void findStraightFlushes(Player p){
 		ArrayList<Card> hand = (ArrayList<Card>) p.getHand().clone();
 		Collections.sort(hand);
@@ -937,14 +933,14 @@ public class GameApp{
 					hands.add(c);
 					for(Card d: p.getHand()){
 						// Look for matching suits
-						if(c.getSuit() == d.getSuit() && d.isFlush()){
+						if(c.getSuit() == d.getSuit() && d.isFlush() && c.getRank() != d.getRank() && counter < 5){
 							counter++;
 							hands.add(d);
 						}
 					}
-					if(counter == 4)
+					if(counter == 5)
 						possible.add(hands);
-					else if(counter > 4){
+					else if(counter > 5){
 						// Correct the hand size
 						for(int i = hands.size(); i > 5; i--)
 							hands.remove(i-1);
@@ -1005,19 +1001,20 @@ public class GameApp{
 					hands.add(c);
 					// Find the four of a kind
 					for(Card d: p.getHand()){
-						if(c.getRank() == d.getRank() && d.is4OfAKind()){
+						if(c.getRank() == d.getRank() && d.is4OfAKind() && c.getSuit() != d.getSuit()){
 							counter++;
 							hands.add(d);
 						}
 					}
 					// Find an extra card to make it a hand
 					for(Card d: p.getHand()){
-						if(c.getRank() != d.getRank() && !d.is4OfAKind() && counter < 4){
+						if(c.getRank() != d.getRank() && !d.is4OfAKind() && counter < 5){
 								hands.add(d);
 								counter++;
+								break;
 							}			
 					}	
-					if(counter == 4)
+					if(counter == 5)
 						possible.add(hands);
 					// Reset the counter
 					counter = 0;

@@ -11,7 +11,6 @@
  * @author Jeric Derama
  * @version 10 Feb 2014
  */
-@SuppressWarnings("serial")
 public class Card implements Comparable<Card>{ 
     private Integer suit;    
     private Integer rank;      
