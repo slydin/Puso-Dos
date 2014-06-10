@@ -101,10 +101,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void changeDouble(){
-    	if(!this.pair)
-    		this.pair = true;
-    	else
-    		this.pair = false;
+        this.pair = !this.pair;
     }
 
     /**
