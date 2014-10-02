@@ -811,13 +811,14 @@ public class GameApp{
 		for(Card c: p.getHand()){
 			// Initialize a hand to be added to the possibilities to be played
 			ArrayList<Card> hands = new ArrayList<Card>();
+			hands.add(c);
 			for(Card d: p.getHand()){
 				if(c.getRank() == d.getRank() && c.getSuit() != d.getSuit() && c.isDouble() && d.isDouble()){
-					hands.add(c);
 					hands.add(d);
 					// Check if the hand can be played and add it to the possibilities if it can
 					if(this.t.canPlay(hands))
 						possible.add(hands);
+					hands = new ArrayList<Card>();
 				}
 			}
 		}
@@ -848,9 +849,9 @@ public class GameApp{
 		for(Card c: p.getHand()){
 			// Initialize a hand to be added to the possibilities to be played
 			ArrayList<Card> hands = new ArrayList<Card>();
+			hands.add(c);
 			for(Card d: p.getHand()){
 				if(c.getRank() == d.getRank() && c.getSuit() != d.getSuit() && c.isTriple() && d.isTriple()){
-					hands.add(c);
 					hands.add(d);
 					// Check if the hand can be played and add it to the possibilities if it can
 					if(this.t.canPlay(hands)){

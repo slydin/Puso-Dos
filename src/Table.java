@@ -105,7 +105,6 @@ public class Table{
 		for(Card c: hand)
 			if(c.getRank() == 3 && c.getSuit() == 1)
 				this.check = false;
-		System.out.println("This is player: "  + p.getNumber());
 		this.played = hand;
 		for(Card c: this.played){
 			p.getHand().remove(p.getHand().indexOf(c));
