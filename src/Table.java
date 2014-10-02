@@ -106,20 +106,13 @@ public class Table{
 			if(c.getRank() == 3 && c.getSuit() == 1)
 				this.check = false;
 		System.out.println("This is player: "  + p.getNumber());
-		System.out.println("This is the hand to be played: " + hand.toString());
 		this.played = hand;
-		System.out.println("This is the player's hand: " + p.getHand().toString());
-		System.out.println("This is the size of this.played: " + this.played.size());
-		System.out.println("This is the size of the player's hand: " + p.getHand().size());
 		for(Card c: this.played){
-			System.out.println("This is the index of c: " + p.getHand().indexOf(c));
 			p.getHand().remove(p.getHand().indexOf(c));
 		}
-		
 		String beingPlayed = "";
 		for(Card c: this.played)
 			beingPlayed = beingPlayed + " " + c.getRank() + " of " + c.getFullSuit();
-		
 		beingPlayed = beingPlayed + " has/have been played";
 		System.out.println(beingPlayed);
 		System.out.println("Player: " + p.getNumber() + " has played");

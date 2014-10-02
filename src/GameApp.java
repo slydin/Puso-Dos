@@ -232,7 +232,6 @@ public class GameApp{
 					}
 					System.out.println("The last hand played: " + this.t.played());
 					System.out.println("You have to play a hand with: " + this.t.playedSize() + " card(s)");
-					System.out.println("This is your hand: ");
 					String playerHand = "";
 					for(int i = 0; i < p.getHand().size(); i++){
 						Card c = p.getHand().get(i);
@@ -256,7 +255,6 @@ public class GameApp{
 				}
 				else{
 					System.out.println("The last hand played: " + this.t.played());
-					System.out.println("This is your hand: ");
 					System.out.println(p.getHand().toString());
 					int input = 1;;
 					if(p.getHand().size() > 4){
