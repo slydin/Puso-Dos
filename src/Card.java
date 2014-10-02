@@ -101,10 +101,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void changeDouble(){
-    	if(!this.pair)
-    		this.pair = true;
-    	else
-    		this.pair = false;
+        this.pair = !this.pair;
     }
 
     /**
@@ -120,10 +117,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void changeTriple(){
-    	if(!this.triple)
-    		this.triple = true;
-    	else
-    		this.triple = false;
+        this.triple = !this.triple;
     }
 
     /**
@@ -138,10 +132,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void changeStraight(){
-    	if(!this.straight)
-    		this.straight = true;
-    	else
-    		this.straight = false;
+        this.straight = !this.straight;
     }
 
     /**
@@ -156,10 +147,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void changeFlush(){
-    	if(!this.flush)
-    		this.flush = true;
-    	else
-    		this.flush = false;
+        this.flush = !this.flush;
     }
 
     /**
@@ -174,10 +162,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void changeFull(){
-    	if(!this.full)
-    		this.full = true;
-    	else
-    		this.full = false;
+        this.full = !this.full;
     }
 
     /**
@@ -192,10 +177,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void change4OfAKind(){
-    	if(!this.four)
-    		this.four = true;
-    	else
-    		this.four = false;
+        this.four = !this.four;
     }
 
     /**
@@ -210,10 +192,7 @@ public class Card implements Comparable<Card>{
      * Method that changes the card's state
      */
     public void changeStraightFlush(){
-    	if(!this.straightFlush)
-    		this.straightFlush = true;
-    	else
-    		this.straightFlush = false;
+        this.straightFlush = !this.straightFlush;
     }
     
     /**
@@ -237,12 +216,6 @@ public class Card implements Comparable<Card>{
 	 * Method that allows for the Card to be checked as a comparable object
 	 */
 	public int compareTo(Card o) {
-		// TODO Auto-generated method stub
-		if(o.getRank() > this.getRank())
-			return 1;
-		else if(o.getRank() == this.getRank())
-			return 0;
-		else
-			return -1;
+        return o.getRank() - this.getRank();
 	}
 }
