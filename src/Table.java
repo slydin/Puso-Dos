@@ -112,9 +112,7 @@ public class Table{
 		String beingPlayed = "";
 		for(Card c: this.played)
 			beingPlayed = beingPlayed + " " + c.getRank() + " of " + c.getFullSuit();
-		beingPlayed = beingPlayed + " has/have been played";
-		System.out.println(beingPlayed);
-		System.out.println("Player: " + p.getNumber() + " has played");
+		System.out.println("Player: " + p.getNumber() + " has played: " + beingPlayed );
 	}
 	
 }

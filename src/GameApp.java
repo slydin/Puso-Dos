@@ -121,42 +121,32 @@ public class GameApp{
 	 * @param party to be dealt with
 	 */
 	public void deal(ArrayList<Card> cards){
-		// Start the counter at 12, starting it at the back instead of having it
-		// at 0 helps prevent any Array bound issues
 		int counter = 12;
-		// Counter for amount of players
 		int playerCount = this.numPlayers;
-		// Initialize an array list to be utilized to be the hand for each player
 		ArrayList<Card> hand = new ArrayList<Card>();
-		// For loop to go through the given deck known as cards to be distributed to each player
+		
 		for(int j = 51; j >= 0; j--){
-			// Boolean checker to check how many players there are 
 			Boolean check = false;
-			// Add said card to a given hand
 			hand.add(cards.get(j));
-			// Remove the card from the deck
 			cards.remove(j);
-			// Decrease the counter
 			counter--;
-			// When the counter reaches 0 we go to the next player
+
 			if(counter < 0){
-				// Construct a player and add it to the array
-				// But first check if there are players
 				if(playerCount != 0)
 					check = true;
 				Player p = new Player(hand,check);
 				this.players.add(p);
-				// Reinitialize the ArrayList for the next player
 				hand = new ArrayList<Card>();
-				// Restart the counter
 				counter = 12;
 				if(check == true)
 					playerCount--;
 			}
 		}
-		for(Player p: this.players)
+		for(Player p: this.players){
+			System.out.println("Player " + p.getNumber() + ": " + p.getHand().toString());
 			if(!p.isPlayer())
 				this.makeHands(p);
+		}
 		
 	}
 	
@@ -183,7 +173,7 @@ public class GameApp{
 		// Now the game begins with the next person on the list
 		this.r = new Random();
 		boolean check = true;
-		// Keeps playing until we have a winner
+
 		while(check){
 			// First check if the player before the current player has already won
 			Player before = null;
@@ -231,7 +221,6 @@ public class GameApp{
 						break;
 					}
 					System.out.println("The last hand played: " + this.t.played());
-					System.out.println("You have to play a hand with: " + this.t.playedSize() + " card(s)");
 					String playerHand = "";
 					for(int i = 0; i < p.getHand().size(); i++){
 						Card c = p.getHand().get(i);
@@ -308,10 +297,14 @@ public class GameApp{
 		boolean check = false;
 		// Check if the computer has a three of clubs, if so they must start.
 		boolean ThreeOfClubs = false;
+		ArrayList<Card> hand = new ArrayList<Card>();
 		for(int i = 0; i < p.getHand().size(); i++){
 			Card c = p.getHand().get(i);
-			if(c.getRank() == 3 && c.getSuit() == 1)
+			if(c.getRank() == 3 && c.getSuit() == 1){
 				ThreeOfClubs = true;
+				hand.add(c);
+				break;
+			}
 		}
 		// Computer has limited amount of tries before passing.
 		int tries = 0;
@@ -322,7 +315,6 @@ public class GameApp{
 				return;
 			}
 			else if(tries == 5 && ThreeOfClubs){
-				ArrayList<Card> hand = new ArrayList<Card>();
 				this.t.play(hand, p);
 				this.resetHand(p);
 				this.endTurn();

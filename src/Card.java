@@ -51,13 +51,13 @@ public class Card implements Comparable<Card>{
 
     	fullSuit = null;
     	if(this.suit == 4)
-    		this.fullSuit = "Diamonds";
+    		this.fullSuit = "D";
     	else if(this.suit == 3)
-    		this.fullSuit = "Hearts";
+    		this.fullSuit = "H";
     	else if(this.suit == 2)
-    		this.fullSuit = "Spades";
+    		this.fullSuit = "S";
     	else if(this.suit == 1)
-    		this.fullSuit = "Clubs";
+    		this.fullSuit = "C";
     }
     
     /**
@@ -208,7 +208,7 @@ public class Card implements Comparable<Card>{
      * Method Override of the toString() method for Objects
      */
     public String toString(){
-    	return "" + this.rank + " of " + this.getFullSuit();
+    	return this.rank + " " + this.getFullSuit();
     }
 
 	@Override
