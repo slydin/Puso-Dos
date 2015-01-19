@@ -963,14 +963,19 @@ public class GameApp{
 					Boolean doubleNotFound = true;
 					Card e = null;
 					for(Card d: p.getHand()){
-						if(c.getRank() != d.getRank() && d.isFull() && d.isDouble() && counter < 2 && doubleNotFound){
+						if(c.getRank() != d.getRank() && d.isFull() && d.isDouble() && counter1 < 1 && doubleNotFound){
 							counter1++;
 							hands.add(d);
 							e = d;
 							doubleNotFound = false;
 						}
-						else if(e.getRank() == d.getRank() && e.getSuit() != d.getSuit())
-							hands.add(d);	
+						if(e != null){
+							if(e.getRank() == d.getRank() && e.getSuit() != d.getSuit()){
+								hands.add(d);	
+								counter1++;
+							}
+						}
+						
 					}
 					if(counter == 3 && counter1 == 2 )
 						possible.add(hands);
